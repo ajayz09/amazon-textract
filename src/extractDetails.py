@@ -83,16 +83,16 @@ def preProcessDocuments():
             else:
                 print("Not Required")                 
 
-def getDividentStatementContents():
-    
-                      
+
+
+
 
 documentsExtracted = []               
 
 def main():
     
     preProcessDocuments()
-    getDividentStatementContents()
+    # getDividentStatementContents()
 
 if __name__== "__main__":
     main()
