@@ -78,7 +78,7 @@ def getFrankingCredit(df):
                 return True
     except:
         return False 
-        # print("Franking Credit - ")       
+             
 
 def getFrankingCreditsFromTable(df):
     DICTIONARY_FC = "../dictionary/franking-credits"
@@ -115,9 +115,9 @@ for documents in os.listdir(DOCUMENTS_PATH):
         gotTotalPayment = getTotalPayment(data)
         gotFrankingCredits = getFrankingCredit(data)
 
-    if not gotFrankingCredits:
-        TABLE_DATA_PATH = DOCUMENTS_PATH + '/' + documents + '/Tables/'
-        for tables in os.listdir(TABLE_DATA_PATH):
-            TABLE_DATA = TABLE_DATA_PATH + tables 
-            dataTable = pd.read_csv(TABLE_DATA,skiprows=1,index_col=False)
+    TABLE_DATA_PATH = DOCUMENTS_PATH + '/' + documents + '/Tables/'
+    for tables in os.listdir(TABLE_DATA_PATH):
+        TABLE_DATA = TABLE_DATA_PATH + tables 
+        dataTable = pd.read_csv(TABLE_DATA,skiprows=1,index_col=False)
+        if not gotFrankingCredits:
             getFrankingCreditsFromTable(dataTable)

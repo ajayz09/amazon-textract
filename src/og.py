@@ -63,11 +63,12 @@ class OutputGenerator:
             for row in table.rows:
                 csvRow  = []
                 for cell in row.cells:
-                    csvRow.append(cell.text)
+                    text = cell.text.rstrip()
+                    csvRow.append(text)
                 csvData.append(csvRow)
             csvData.append([])
             csvData.append([])
-
+        
         FileHelper.writeCSVRaw("{}-page-{}-tables.csv".format(self.fileName, p), csvData)
 
     def run(self):
