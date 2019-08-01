@@ -27,7 +27,7 @@ def mergeRows(path):
     table = pd.read_csv(path,skiprows=1,header=None)
     # print(table.loc[0,:])
     # print(table.loc[1,:])
-    a = table.loc[0,:] + table.loc[1,:]
+    a = table.loc[0,:] + " " + table.loc[1,:]
     table.loc[-1] = a
     table.index = table.index + 1  # shifting index
     table.sort_index(inplace=True) 
@@ -53,10 +53,10 @@ def preProcessDocuments():
                 oldPath = os.curdir + '/' + i
                 newPath = documentPath + '/' + i
                 os.rename(oldPath, newPath) 
-            
+                print(newPath)
                 isForms = "-forms.csv"
                 isTable = "-tables.csv"
-
+                isText = "-text-inreadingorder.txt"
                 if isForms in newPath:
                     formsPath = documentPath + '/Forms'
                     if not os.path.exists(formsPath):
@@ -70,6 +70,13 @@ def preProcessDocuments():
                         os.makedirs(tablePath)
                     tablePath = tablePath + '/' + i    
                     os.rename(newPath,tablePath)    
+
+                if isText in newPath:
+                    textPath = documentPath + '/Text'
+                    if not os.path.exists(textPath):
+                        os.makedirs(textPath)
+                    textPath = textPath + '/' + i    
+                    os.rename(newPath,textPath)        
 
     for documents in documentsExtracted:
         tablePath = documents + '/Tables/'

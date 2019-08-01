@@ -31,7 +31,7 @@ class OutputGenerator:
         # FileHelper.writeToFile("{}-page-{}-text.txt".format(self.fileName, p), text)
 
         textInReadingOrder = page.getTextInReadingOrder()
-        # FileHelper.writeToFile("{}-page-{}-text-inreadingorder.txt".format(self.fileName, p), textInReadingOrder)
+        FileHelper.writeToFile("{}-page-{}-text-inreadingorder.txt".format(self.fileName, p), textInReadingOrder)
 
     def _outputForm(self, page, p):
         csvData = []
