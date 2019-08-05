@@ -4,14 +4,23 @@ import csv
 import pandas as pd
 
 def formatdate(paymentDate):
-    paymentDate = paymentDate.split()
-    day = paymentDate[0]
-    month = paymentDate [1].lower()
-    year = paymentDate[2]
     months = dict(january='01', february='02', march='03', april='04', may='05', june='06', july='07', august='08', september='09', october='10', november='11', december='12')
-    month = months[month]
-    date = year+'-'+month+'-'+day
-    return date
+    paymentDateList = paymentDate.split()
+    if (len(paymentDateList) != 1):
+        day = paymentDateList[0]
+        month = paymentDateList [1].lower()
+        year = paymentDateList[2]
+        month = months[month]
+        date = year+'-'+month+'-'+day
+        return date
+    elif (len(paymentDateList) == 1):
+        paymentDateList = paymentDate.split('/')
+        day = paymentDateList[0]
+        month = paymentDateList [1]
+        year = paymentDateList[2]
+        date = year+'-'+month+'-'+day
+        return date
+            
 
 def getFrankedAmount(df):
     DICTIONARY_FA = "../dictionary/franked-amount"
@@ -38,6 +47,8 @@ def getUnfrankedAmount(df):
                 unfrankedAmount = unfrankedAmountRow.Value.values[0]
                 unfrankedAmount = unfrankedAmount.replace("A$","")
                 unfrankedAmount = unfrankedAmount.replace("$","")
+                if unfrankedAmount == 'Nil':
+                    unfrankedAmount = 0.0
                 print('Unfranked Amount - ',unfrankedAmount)
                 return True 
     except:
@@ -141,6 +152,8 @@ def getUnfrankedAmountFromTable(df):
                 unfrankedAmount = df[i].iloc[0]    
                 unfrankedAmount = unfrankedAmount.replace("A$","")
                 unfrankedAmount = unfrankedAmount.replace("$","")
+                if unfrankedAmount == 'Nil':
+                    unfrankedAmount = 0.0
                 print('Unfranked Amount - ',unfrankedAmount)
                 return True
     except:
