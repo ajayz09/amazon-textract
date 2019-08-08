@@ -48,7 +48,7 @@ def getUnfrankedAmount(df):
                 unfrankedAmount = unfrankedAmount.replace("A$","")
                 unfrankedAmount = unfrankedAmount.replace("$","")
                 if unfrankedAmount == 'Nil':
-                    unfrankedAmount = 0.0
+                    unfrankedAmount = 0.00
                 print('Unfranked Amount - ',unfrankedAmount)
                 return True 
     except:
@@ -153,7 +153,7 @@ def getUnfrankedAmountFromTable(df):
                 unfrankedAmount = unfrankedAmount.replace("A$","")
                 unfrankedAmount = unfrankedAmount.replace("$","")
                 if unfrankedAmount == 'Nil':
-                    unfrankedAmount = 0.0
+                    unfrankedAmount = 0.00
                 print('Unfranked Amount - ',unfrankedAmount)
                 return True
     except:

@@ -1,0 +1,1 @@
+psql --host=brite-demo.cynoj8t2jpz4.ap-southeast-2.rds.amazonaws.com --port=5432 --dbname=pluto --username=web_user
