@@ -18,8 +18,20 @@ def connect():
         
    # execute a statement
         print('PostgreSQL database version:')
-        cur.execute("SELECT file_record.id,subdir FROM document_processor.file_record JOIN document_processor.client_document on client_document.file=file_record.id and type='Distribution' and subdir LIKE 'unprocessed_file/%';")
- 
+        # cur.execute("SELECT file_record.id,subdir FROM document_processor.file_record JOIN document_processor.client_document on client_document.file=file_record.id and type='Distribution' and subdir LIKE 'unprocessed_file/%';")
+        # sql = "SELECT file_record.id,subdir FROM document_processor.file_record JOIN document_processor.client_document on client_document.file=file_record.id and type='Distribution' and subdir LIKE 'unprocessed_file/%';"
+        # sql = "SELECT * from document_processor.file_record;"
+        # cur.execute(sql)
+        
+        sql = "SELECT * FROM document_processor.file_record JOIN document_processor.dividend_statement ON dividend_statement.file_record_id = file_record.id;" 
+        number_of_rows = cur.execute(sql)
+        
+        while True:
+            row = cur.fetchone()
+            if row == None:
+                break
+            print(row)
+
         # display the PostgreSQL database server version
         db_version = cur.fetchone()
         print(db_version)

@@ -33,7 +33,7 @@ def getFrankedAmount(df):
                 frankedAmount = frankedAmount.replace("A$","")
                 frankedAmount = frankedAmount.replace("$","")
                 print('Franked Amount - ',frankedAmount)
-                return True
+                return frankedAmount
     except:
         return False  
 
@@ -139,7 +139,7 @@ def getFrankedAmountFromTable(df):
                 frankedAmount = frankedAmount.replace("A$","")
                 frankedAmount = frankedAmount.replace("$","")
                 print('Franked Amount - ',frankedAmount)
-                return True
+                return frankedAmount
     except:
         return False        
 
@@ -239,18 +239,23 @@ for documents in os.listdir(DOCUMENTS_PATH):
         TABLE_DATA = TABLE_DATA_PATH + tables 
         dataTable = pd.read_csv(TABLE_DATA,skiprows=1,index_col=False)
         if not gotFrankingCredits:
-            getFrankingCreditsFromTable(dataTable)
+            gotFrankingCredits = getFrankingCreditsFromTable(dataTable)
         if not gotFrankedAmount:
-            getFrankedAmountFromTable(dataTable) 
+            gotFrankedAmount = getFrankedAmountFromTable(dataTable) 
         if not gotUnfrankedAmount:
-            getUnfrankedAmountFromTable(dataTable)
+            gotUnfrankedAmount = getUnfrankedAmountFromTable(dataTable)
         if not gotTotalPayment:
-            getTotalPaymentFromTable(dataTable)   
+            gotTotalPayment = getTotalPaymentFromTable(dataTable)   
         if not gotParticipatingShares:
-            getParticipatingSharesFromTable(dataTable) 
+            gotParticipatingShares = getParticipatingSharesFromTable(dataTable) 
 
     TEXT_DATA_PATH = DOCUMENTS_PATH + '/' + documents + '/Text/'  
     for text in os.listdir(TEXT_DATA_PATH):
         TEXT_DATA = TEXT_DATA_PATH + text   
         if not gotPaymentDate:
-            gotPaymentDate = getPaymentDateFromText(TEXT_DATA)             
+            gotPaymentDate = getPaymentDateFromText(TEXT_DATA)       
+
+    if gotFrankedAmount:
+        if not gotFrankingCredits:
+            frankingCredit = (float(gotFrankedAmount) / 0.7) - float(gotFrankedAmount)   
+            print('Franking Credit - ',(round(frankingCredit, 2)))      
